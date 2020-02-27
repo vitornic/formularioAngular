@@ -1,0 +1,123 @@
+<br />
+<p>formulario works!</p>
+
+<form [formGroup]="formulario" (ngSubmit)="enviarDados()" class="formulario">
+  <fieldset>
+    <div>
+      <label for="nome">Nome: </label>
+      <input type="text" formControlName="nome">
+      <div *ngIf="!nome.pristine && nome.errors">
+        <p *ngIf="nome.errors.required">
+          <strong><span class="msgErro">Nome é obrigatório.</span></strong>
+        </p>
+        <p *ngIf="nome.errors.minlength">
+          <span class="msgAlerta">Nome deve ter no mínimo 3 caracters.</span>
+        </p>
+        <p *ngIf="nome.errors.maxlength">
+          <span class="msgErro">Nome deve ter no máximo 100 caracters.</span>
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">E-mail: </label>
+      <input type="text" formControlName="email">
+      <div *ngIf="!email.pristine && email.errors">
+        <p *ngIf="email.errors.email">
+          Digite um e-mail válido.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label for="cpf">CPF: </label>
+      <input type="text" formControlName="cpf">
+      <div *ngIf="!cpf.pristine && cpf.errors">
+        <p *ngIf="cpf.errors.required">
+          CPF é obrigatório.
+        </p>
+        <p *ngIf="cpf.errors.cpfInvalido">
+          Digite um CPF válido
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label for="nascimento">Nascimento: </label>
+      <input type="date" formControlName="nascimento">
+      <div *ngIf="!nascimento.pristine && nascimento.errors">
+        <p *ngIf="nascimento.errors.required">
+          <span class="msgAlerta">Data de Nascimento é obrigatória.</span>
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label for="senha">Senha: </label>
+      <input type="password" formControlName="senha">
+      <div *ngIf="!senha.pristine && senha.errors">
+        <p *ngIf="senha.errors.required">
+          <span class="msgErro">Senha é obrigatória.</span>
+        </p>
+        <p *ngIf="senha.errors.minlength">
+          <span class="msgAlerta">Senha deve ter no mínimo 6 caracters.</span>
+        </p>
+        <p *ngIf="senha.errors.maxlength">
+          <span class="msgAlerta">Senha deve ter no máximo 12 caracters.</span>
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <label for="confirmarSenha">Confirmar Senha: </label>
+      <input type="password" formControlName="confirmarSenha">
+      <div *ngIf="!confirmarSenha.pristine && confirmarSenha.errors">
+        <p *ngIf="confirmarSenha.errors.required">
+          <span class="msgAlerta">Confirme sua senha.</span>
+        </p>
+        <p *ngIf="confirmarSenha.errors.senhasNaoCoincidem">
+          <span class="msgErro">As senhas não coincidem.</span>
+        </p>
+      </div>
+    </div>
+
+    <br />
+    <div>
+      <button [disabled]="!formulario.valid">Enviar dados</button>
+    </div>
+
+    <div>
+      <input type="reset" value="limpar">
+    </div>
+  </fieldset>
+  <br />
+  <br />
+
+  <div>
+    <fieldset>
+      <pre>{{ formulario.value | json }}</pre>
+      <pre>Formulario valido: {{ formulario.valid | json }}</pre>
+    </fieldset>
+  </div>
+</form>
+
+<table class="blueTable">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Cpf</th>
+      <th>Data nascimento</th>
+      <th>Senha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of this.pessoa">
+      <td>{{ p.nome }}</td>
+      <td>{{ p.email }}</td>
+      <td>{{ p.cpf }}</td>
+      <td>{{ p.nascimento }}</td>
+      <td>{{ p.senha }}</td>
+    </tr>
+  </tbody>
+</table>
